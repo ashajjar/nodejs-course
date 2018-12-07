@@ -22,11 +22,6 @@ var getNote = (title)=>{
     return found[0];
 };
 var createNote = (title, body) => {
-    if(_.isEmpty(title) || _.isEmpty(body)){
-    	console.error('Title and body must be provided');
-    	return;
-    }
-
     var notes = loadNotesFile();
 
     var dups = notes.filter((note)=>note.title === title );
@@ -39,11 +34,6 @@ var createNote = (title, body) => {
 };
 
 var readNote = (title) => {
-    if(_.isEmpty(title)){
-    	console.error('Title must be provided');
-    	return;
-    }
-
     return getNote(title);
 };
 
@@ -66,7 +56,7 @@ var readNote = (title) => {
 var deleteNote = (title) => {
     var notes = loadNotesFile();
     var notesCount = notes.length;
-    notes = notes.filter((note)=> note.title!==title);
+    notes = notes.filter((note)=> _.toString(note.title)!==_.toString(title));
     if(notesCount === notes.length){
     	return false;
     }else{
